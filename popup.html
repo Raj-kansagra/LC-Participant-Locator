@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Participant Locator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+            color: #0f0e0e;
+            margin: 5px 13px;
+            width: 200px; /* Set body width to 200px */
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 60%;
+            padding: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 13px;
+            flex: 1;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        label {
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        button {
+            width: 38%;
+            padding: 10px 3px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            background: rgba(255, 255, 255, 0.2);
+            color: #000;
+            font-size: 13px;
+            border-radius: 5px;
+            padding-top: 7px;
+            padding-left: 0px;
+            padding-bottom: 5px;
+            min-height: 47px;
+        }
+        #error {
+            color: #ff0000;
+            padding: 0px auto auto 5px;
+            min-height: 28px;
+            border-radius: 5px;
+            margin: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LC Participant Locator</h1>
+    <h3>Contest-type</h3>
+    <div style="text-align: center;">
+        <input type="radio" id="Weekly" name="ContestType" value="Weekly" checked>
+        <label for="Weekly">Weekly</label>
+        <input type="radio" id="Biweekly" name="ContestType" value="Biweekly">
+        <label for="Biweekly">Biweekly</label>
+    </div>
+    <h3>Contest-Number</h3>
+    <div style="text-align: center;">
+        <div class="input-group">
+            <input type="text" id="Contest-Number" placeholder="Ex 396">
+            <button id="fetchDataBtn">Load Data</button>
+        </div>
+    </div>
+    
+    <div id="error"></div>
+
+    <div style="text-align: center;">
+        <div class="input-group">
+            <input type="text" id="usernameInput" placeholder="username">
+            <button id="searchBtn">Search</button>
+        </div>
+    </div>
+    
+    <div id="result"></div>
+
+    <script src="content.js"></script>
+</body>
+</html>
