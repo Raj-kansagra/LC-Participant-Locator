@@ -1,5 +1,5 @@
 const baseUrl = 'https://leetcode.com/contest/api/ranking/';
-const pagination = 200;
+const pagination = 650;
 const batchSize = 5;
 const maxRetries = 4;
 const initialBackoffTime = 1000;
