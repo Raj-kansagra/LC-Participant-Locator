@@ -9,7 +9,11 @@ The LeetCode Participant Locator is a Chrome extension designed to help you easi
 **What the Extension Solves**
 --------------------------
 
-When participating in LeetCode contests, finding your rank and viewing other users' solutions can be cumbersome. The LeetCode Participant Locator addresses this issue by providing a straightforward way to locate your position and explore other participants' codes without manually searching through the entire list.
+- When participating in LeetCode contests, finding your rank and viewing other users' solutions can be cumbersome. The LeetCode Participant Locator addresses this issue by providing a straightforward way to locate your position in the contest list and explore other participants' codes without manually searching through the entire list. Please note that this extension does not display the actual rank of a user, but rather their position in the contest list.
+- If your friends have hidden the submission section on LeetCode, don't worry; this extension allows you to view their codes even if they have hidden their submissions.
+
+**Note:** To predict your rank and rating, you can use the [LeetCode contest rating predictor (LCCN)](https://lccn.lbao.site/).
+
 
 **Features**
 --------
