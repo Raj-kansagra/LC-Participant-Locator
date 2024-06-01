@@ -1,4 +1,4 @@
-**LeetCode Participant Locator**
+**LeetCode Participant Locator - [chrome-extension]**
 ---------------------------------
 
 **Overview**
