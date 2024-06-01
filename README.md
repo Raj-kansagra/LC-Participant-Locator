@@ -34,7 +34,7 @@ To use the LeetCode Participant Locator extension, follow these steps:
 First, clone the repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/yourusername/leetcode-participant-locator.git
+git clone https://github.com/Raj-kansagra/leetcode-participant-locator.git
 ```
 
 **Load the Extension in Chrome**
@@ -80,6 +80,6 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 ---
 
-For any issues or feature requests, please open an issue on the GitHub repository: https://github.com/yourusername/leetcode-participant-locator
+For any issues or feature requests, please open an issue on the GitHub repository: https://github.com/Raj-kansagra/LC-Participant-Locator.git
 
 Happy Coding!
