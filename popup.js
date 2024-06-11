@@ -121,7 +121,7 @@ function sleep(milliseconds) {
 
 function storeDataWithExpiry(key, value) {
     const now = Date.now();
-    const expiryTime = now + 7 * 1000; // 5 hours in milliseconds
+    const expiryTime = now + 5 * 60 * 60 * 1000; // 5 hours in milliseconds
     const data = {
         value: value,
         expiry: expiryTime
