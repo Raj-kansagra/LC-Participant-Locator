@@ -1,12 +1,10 @@
 //chrome.storage.local.get("Weekly399",function(result){console.log(result["Weekly399"])})
 //chrome.storage.local.clear();
 
-
 function getContestNumber() {
     const num = document.getElementById("Contest-Number").value;
     return num;
 }
-
 function getContestType() {
     const radios = document.getElementsByName("ContestType");
     for (const radio of radios) {
@@ -16,6 +14,37 @@ function getContestType() {
     }
     return null;
 }
+
+function removeExpiredData() {
+    return new Promise((resolve, reject) => {
+        const now = Date.now();
+        console.log("checking....");
+        chrome.storage.local.get(null, async (items) => {
+            try {
+                let flag=0;
+                for (const key in items) {
+                    if (items[key].expiry && items[key].expiry < now) {
+                        await new Promise((resolve, reject) => {
+                            chrome.storage.local.remove(key, () => {
+                                if (chrome.runtime.lastError) {
+                                    return reject(chrome.runtime.lastError);
+                                }
+                                flag=1;
+                                console.log(`Data with key: ${key} has been removed due to expiry.`);
+                                resolve();
+                            });
+                        });
+                    }
+                }
+                if (flag) resolve(1);
+                else resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
+    });
+}
+
 function getLocalStorageData(key) {
     return new Promise((resolve, reject) => {
         chrome.storage.local.get(key, function (result) {
@@ -23,7 +52,6 @@ function getLocalStorageData(key) {
                 reject(chrome.runtime.lastError);
                 return;
             }
-            
             resolve(result[key]);
         });
     });
@@ -38,7 +66,7 @@ async function searchUser(username, contest_type, contestNumber) {
     const user = obj.find(pair => pair.username === username);
     return user || null;
 }
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request) => {
     if (request.className) {
         const displayError = document.getElementById(request.className);
         displayError.textContent = `Error fetching data: ${error.message}`;
@@ -82,7 +110,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                 displayError.textContent = "Contest Not Found";
                 return;
             }
+
+            await removeExpiredData();
+            
             let text = await getLocalStorageData(`${contest_type}${contestNumber}`);
+            console.log(text);
             if(!text){
                 chrome.runtime.sendMessage({ action: 'fetchAllData', contest_type, contestNumber }, response => {
                     if (response.status === 'Data loaded successfully') {
@@ -112,11 +144,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             resultDiv.textContent = 'Please enter a username.';
             return;
         }
+        const isremoved = await removeExpiredData();
+        
         let User = await searchUser(username, contest_type, contestNumber);
         if (User == null) {
             resultDiv.textContent = 'User not found';
         } else if (User == 0) {
-            resultDiv.textContent = 'Please load the data first';
+            if(isremoved) resultDiv.textContent = 'Previous data load Expired. Please load again';
+            else resultDiv.textContent = 'Please load the data first';
         } else {
             let pos;
             if (User.rank == 0) pos = "st";

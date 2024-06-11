@@ -1,11 +1,12 @@
 const baseUrl = 'https://leetcode.com/contest/api/ranking/';
 const pagination = 650;
-const batchSize = 5;
+const batchSize = 7;
 const maxRetries = 4;
 const initialBackoffTime = 1000;
 let endofpage = 0;
 let isFetchingData = false; // Flag to check if fetchAllData is running
 let terminate = 0;
+
 async function fetchData(url) {
     let retryCount = 0;
     let backoffTime = initialBackoffTime;
@@ -15,6 +16,7 @@ async function fetchData(url) {
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
+                    'Cache-Control': 'no-cache',
                     'Accept-Language': 'en-US,en;q=0.8',
                     'content-type': 'application/json',
                     'Accept-Encoding': 'gzip, deflate, br',
@@ -91,7 +93,7 @@ async function fetchAllData(contest_type, contestNumber) {
                 promises = [];
                 console.log(`Fetched data for pages ${page - batchSize + 1} to ${page}`);
                 
-                await sleep(500);
+                await sleep(250);
                 
             } catch (error) {
                 console.log('Error in Promise.all:', error);
@@ -119,7 +121,7 @@ function sleep(milliseconds) {
 
 function storeDataWithExpiry(key, value) {
     const now = Date.now();
-    const expiryTime = now + 5 * 60 * 60 * 1000; // 5 hours in milliseconds
+    const expiryTime = now + 7 * 1000; // 5 hours in milliseconds
     const data = {
         value: value,
         expiry: expiryTime
@@ -133,20 +135,6 @@ function storeDataWithExpiry(key, value) {
     });
 }
 
-function removeExpiredData() {
-    const now = Date.now();
-    chrome.storage.local.get(null, (items) => {
-        for (const key in items) {
-            if (items[key].expiry && items[key].expiry < now) {
-                chrome.storage.local.remove(key, () => {
-                    console.log(`Data with key: ${key} has been removed due to expiry.`);
-                });
-            }
-        }
-    });
-}
-//set an interval to periodically check for expired data
-setInterval(removeExpiredData, 5*60*1000); // Every 5 mins
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'fetchAllData') {
