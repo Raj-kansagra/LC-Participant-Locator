@@ -1,12 +1,10 @@
 {
   "manifest_version": 3,
   "name": "LC Participant Locator",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Find your position in the LeetCode contest list to easily locate and view other users' codes.",
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting"
+    "storage"
   ],
   "icons": {
     "16": "images/fav-icon.png",
