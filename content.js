@@ -154,13 +154,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             else resultDiv.textContent = 'Please load the data first';
         } else {
             let pos;
-            if (User.rank == 0) pos = "st";
-            else if (User.rank == 1) pos = "nd";
-            else if (User.rank == 2) pos = "rd";
+            if (User.rank == 1) pos = "st";
+            else if (User.rank == 2) pos = "nd";
+            else if (User.rank == 3) pos = "rd";
             else pos = "th";
             
-            let pageNumber = Math.ceil((User.rank + 1) / 25);
-            resultDiv.innerHTML = `Username: ${User.username}<br>Standing: ${User.rank + 1}${pos}<br> You can find user on Pg-${pageNumber}`;
+            let pageNumber = Math.ceil((User.rank) / 25);
+            resultDiv.innerHTML = `Username: ${User.username}<br>Standing: ${User.rank}${pos}<br> You can find user on Pg-${pageNumber}`;
         }
     });
 
